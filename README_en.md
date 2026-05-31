@@ -9,6 +9,9 @@
 # Declaration
 This project uses the CC BY-NC 4.0 license. Commercial use requires authorization from the copyright holder pycx0@qq.com. Commercial products developed based on this project must obtain authorization. Non-commercial use is free!
 
+# Note: If Images Fail to Load
+Download this project and open it with an MD reader! (VSCode works)
+
 # Table of Contents
 
 - [Basic Environment Setup](#basic-environment-setup)
