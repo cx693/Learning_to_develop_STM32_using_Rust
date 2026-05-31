@@ -1,0 +1,86 @@
+# [package] 段：定义包的元数据信息
+[package]
+# 包的名称，用于在 crates.io 上发布或被其他项目引用时标识
+name = "动态GPIO切换"
+# 包的版本号，遵循语义化版本规范（Semantic Versioning）
+version = "0.1.0"
+# 使用的 Rust 版本约定，2024 是最新的版本，启用了最新的语言特性
+edition = "2024"
+
+# [dependencies] 段：定义项目的依赖项
+[dependencies]
+# embedded-hal：嵌入式硬件抽象层标准接口
+# 版本 "1.0" 表示使用 1.0.x 的最新版本
+# 定义了 GPIO、I2C、SPI、串口等通用 trait，使得驱动代码可在不同 MCU 间移植
+embedded-hal = "1.0"
+
+# nb：non-blocking（非阻塞）操作库
+# 提供 Result 和 block! 宏，用于处理可能需要重试的操作（如串口发送）
+nb = "1"
+
+# cortex-m：ARM Cortex-M 处理器的底层支持库
+# 提供系统寄存器访问、中断管理、系统定时器等功能
+cortex-m = "0.7.7"
+
+# cortex-m-rt：Cortex-M 运行时库
+# 提供启动代码、中断向量表、内存初始化等运行时支持
+# 有了它才能使用 #[entry] 宏定义程序入口点
+cortex-m-rt = "0.7.5"
+
+# panic-halt：panic 处理程序
+# 当程序发生不可恢复的错误时，将 CPU 置于停止状态
+# 其他替代方案包括 panic-semihosting、panic-itm 等
+panic-halt = "1.0.0"
+rtt-target = "0.6.2"
+
+# [dependencies.stm32f1xx-hal]：特定依赖的详细配置
+# 使用表格语法为 stm32f1xx-hal 提供更详细的配置
+[dependencies.stm32f1xx-hal]
+# 指定版本号
+version = "0.11.0"
+# features：启用编译时特性
+# "stm32f103"：选择 STM32F103 系列芯片的支持代码
+# "medium"：中等密度芯片配置（64-128KB Flash），C8T6 属于此类
+# 其他选项还有 "low"（低密度，16-32KB）和 "high"（高密度，256KB+）
+features = ["stm32f103", "medium"]
+
+
+# [profile.dev] 段：开发模式的编译优化配置
+# dev 模式用于开发调试，平衡编译速度和调试体验
+[profile.dev]
+# incremental = false：关闭增量编译
+# 增量编译可以加快重新编译速度，但在嵌入式开发中可能导致问题
+# 关闭后每次都会完整编译，确保构建的一致性
+incremental = false
+
+# codegen-units = 1：将整个 crate 作为单个代码生成单元
+# 默认是 16，减少到 1 可以让编译器进行更激进的优化
+# 但会增加编译时间，在嵌入式开发中常用此设置
+codegen-units = 1
+
+# panic = "abort"：发生 panic 时直接终止程序
+# 默认是 "unwind"（展开栈），但嵌入式环境通常不支持栈展开
+# 设置为 abort 可以减少代码大小
+panic = "abort"
+
+
+# [profile.release] 段：发布模式的编译优化配置
+# release 模式用于最终部署，优化代码大小和运行速度
+[profile.release]
+# codegen-units = 1：同样使用单个代码生成单元
+# 在发布版本中，这可以让链接时优化（LTO）效果更好
+codegen-units = 1
+
+# debug = true：在发布版本中保留调试信息
+# 默认是 false，设为 true 可以让你在发布版本中也能进行调试
+# 不会影响代码大小或性能，只会增加编译产物的体积
+debug = true
+
+# lto = true：启用链接时优化（Link Time Optimization）
+# 允许编译器在整个程序的层面上进行优化，而不仅仅是单个 crate
+# 可以显著减少代码大小和提高性能，但会增加链接时间
+lto = true
+
+# panic = "abort"：发布版本中也使用 abort 策略
+# 确保 panic 时不会尝试栈展开，减少代码大小
+panic = "abort"

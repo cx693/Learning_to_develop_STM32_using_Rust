@@ -1,0 +1,48 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "probe-rs-debug",
+            "request": "launch",
+            "name": "STM Debug",
+            "cwd": "${workspaceFolder}",
+            //!MODIFY (or remove)
+            "speed": 24000,
+            //!MODIFY (or remove)
+            //   "probe": "VID:PID:<Serial>",
+            "runtimeExecutable": "probe-rs",
+            "runtimeArgs": [
+                "dap-server"
+            ],
+            //!MODIFY
+            "chip": "STM32F103C8", // 芯片型号 更具自己的修改！
+            "flashingConfig": {
+                "flashingEnabled": true,
+                "haltAfterReset": false,
+                "formatOptions": {
+                    //!MODIFY (or remove). Valid values are: 'bin', 'hex', 'elf'(default), 'idf'
+                    "binaryFormat": "elf"
+                }
+            },
+            "coreConfigs": [
+                {
+                    "coreIndex": 0,
+                    // 开启RTT
+                    "rttEnabled": true,
+                    //!MODIFY
+                    "programBinary": "target/thumbv7m-none-eabi/debug/${workspaceFolderBasename}",
+                    //!MODIFY
+                    // "svdFile": "Relative or fully qualified path to the CMSIS-SVD file for your target core"
+                }
+            ],
+            "env": {
+                //!MODIFY (or remove)
+                // If you set this variable, check the VSCode console log window for the location of the log file.
+                // "RUST_LOG": "info"
+                "RUST_LOG": "warn"
+            },
+            // Info, Debug
+            "consoleLogLevel": "Console"
+        }
+    ]
+}

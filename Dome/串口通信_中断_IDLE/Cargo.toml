@@ -1,0 +1,57 @@
+# [package] 段：定义包的元数据信息
+[package]
+# 包的名称，用于在 crates.io 上发布或被其他项目引用时标识
+name = "串口中断_空闲检测"
+# 包的版本号，遵循语义化版本规范（Semantic Versioning）
+version = "0.1.0"
+# 使用的 Rust 版本约定，2024 是最新的版本，启用了最新的语言特性
+edition = "2024"
+
+# [dependencies] 段：定义项目的依赖项
+[dependencies]
+# embedded-hal：嵌入式硬件抽象层标准接口
+# 版本 "1.0" 表示使用 1.0.x 的最新版本
+# 定义了 GPIO、I2C、SPI、串口等通用 trait，使得驱动代码可在不同 MCU 间移植
+embedded-hal = "1.0"
+
+# nb：non-blocking（非阻塞）操作库
+# 提供 Result 和 block! 宏，用于处理可能需要重试的操作（如串口发送）
+nb = "1"
+
+# cortex-m：ARM Cortex-M 处理器的底层支持库
+# 提供系统寄存器访问、中断管理、系统定时器等功能
+cortex-m = "0.7.7"
+
+# cortex-m-rt：Cortex-M 运行时库
+# 提供启动代码、中断向量表、内存初始化等运行时支持
+# 有了它才能使用 #[entry] 宏定义程序入口点
+cortex-m-rt = "0.7.5"
+panic-halt = "1.0.0"
+rtt-target = "0.6.2"
+rtic = { version = "2", features = ["thumbv7-backend"] }
+rtic-monotonics = { version = "2", features = ["cortex-m-systick"] }
+
+
+# [dependencies.stm32f1xx-hal]：特定依赖的详细配置
+# 使用表格语法为 stm32f1xx-hal 提供更详细的配置
+[dependencies.stm32f1xx-hal]
+# 指定版本号
+version = "0.11.0"
+# features：启用编译时特性
+# "stm32f103"：选择 STM32F103 系列芯片的支持代码
+# "medium"：中等密度芯片配置（64-128KB Flash），C8T6 属于此类
+# 其他选项还有 "low"（低密度，16-32KB）和 "high"（高密度，256KB+）
+features = ["stm32f103", "medium"]
+
+
+[profile.dev]
+incremental = false   # 关闭增量编译，确保嵌入式构建一致性
+codegen-units = 1     # 单代码生成单元，让编译器做更多优化
+opt-level = 1         # 轻度优化，避免 debug 模式下中断处理太慢
+panic = "abort"       # panic 时直接终止，不展开栈（嵌入式无栈展开支持）
+
+[profile.release]
+codegen-units = 1
+debug = true          # 保留调试信息（不影响性能，方便用调试器排查问题）
+lto = true            # 链接时优化，跨 crate 优化以减小体积
+panic = "abort"

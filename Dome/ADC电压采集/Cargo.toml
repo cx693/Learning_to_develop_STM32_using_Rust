@@ -1,0 +1,57 @@
+# [package] 段：定义包的元数据信息
+[package]
+name = "ADC电压采集"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+# embedded-hal：嵌入式硬件抽象层标准（GPIO、SPI、I2C 等统一接口）
+embedded-hal = "1.0"
+
+# nb：non-blocking 库，提供 Result 和 block! 宏
+nb = "1"
+
+# cortex-m：ARM Cortex-M 处理器底层支持（NVIC、SCB、SYST 等寄存器访问）
+cortex-m = "0.7.7"
+
+# cortex-m-rt：Cortex-M 运行时（启动代码、中断向量表、内存布局）
+cortex-m-rt = "0.7.5"
+
+# panic-halt：panic 处理程序，发生 panic 时直接停机（最简单的处理方式）
+panic-halt = "1.0.0"
+
+# rtt-target：RTT（Real-Time Transfer）调试输出
+# 通过 J-Link/ST-Link 调试器实现零侵入的实时打印（rprintln!）
+rtt-target = "0.6.2"
+
+# rtic：实时中断驱动并发框架 v2
+# thumbv7-backend：使用 Cortex-M 的 BASEPRI 寄存器实现优先级调度
+rtic = { version = "2", features = ["thumbv7-backend"] }
+
+# rtic-monotonics：RTIC 的单调度定时器实现
+# cortex-m-systick：使用 Cortex-M 内置的 SysTick 定时器作为时钟源
+# SysTick 是一个 24 位倒计数器，所有 Cortex-M 芯片都有
+rtic-monotonics = { version = "2", features = ["cortex-m-systick"] }
+
+# stm32f1xx-hal：STM32F1 系列的硬件抽象层
+# 提供 RCC、GPIO、TIM、USART 等外设的高级 Rust API
+[dependencies.stm32f1xx-hal]
+version = "0.11.0"
+features = [
+    "stm32f103",  # STM32F103 系列芯片
+    "medium",     # 中等密度（64-128KB Flash），C8T6 属于此类型
+]
+
+# ==================== 编译配置 ====================
+
+[profile.dev]
+incremental = false   # 关闭增量编译，确保嵌入式构建一致性
+codegen-units = 1     # 单代码生成单元，让编译器做更多优化
+opt-level = 1         # 轻度优化，避免 debug 模式下中断处理太慢
+panic = "abort"       # panic 时直接终止，不展开栈（嵌入式无栈展开支持）
+
+[profile.release]
+codegen-units = 1
+debug = true          # 保留调试信息（不影响性能，方便用调试器排查问题）
+lto = true            # 链接时优化，跨 crate 优化以减小体积
+panic = "abort"
