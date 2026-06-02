@@ -1995,7 +1995,7 @@ fn usb_interrupt() {
 + 可配置立方体大小、视场角、旋转速度
 + SPI时钟：36MHz
 
-[项目源代码](https://github.com/cx693/Learning_to_develop_STM32_using_Rust/blob/main/Dome/ST7789_cube3d_No_Color/src/main.rs)
+[项目源代码](https://github.com/cx693/Learning_to_develop_STM32_using_Rust/blob/main/Dome/ST7789_cube3d_No_Color)
 
 
 
