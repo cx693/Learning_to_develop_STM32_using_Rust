@@ -3,7 +3,7 @@
 version = 4
 
 [[package]]
-name = "ST7789_图片"
+name = "ST7789_cube3d_Color"
 version = "0.1.0"
 dependencies = [
  "cortex-m",

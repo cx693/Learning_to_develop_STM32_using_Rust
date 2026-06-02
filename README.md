@@ -1974,7 +1974,7 @@ fn usb_interrupt() {
 
 [项目地址见这里](https://github.com/cx693/Learning_to_develop_STM32_using_Rust/tree/main/Dome/DHT20%2BST7789)
 
-## ST7789 3D立方体（彩色）
+## ST7789 3D立方体（无颜色-框架）
 在ST7789 240x240显示屏上渲染旋转的3D立方体，支持彩色面、线框渲染和FPS计数器。
 
 **硬件引脚连接（同SPI显示屏）：**
@@ -1995,7 +1995,7 @@ fn usb_interrupt() {
 + 可配置立方体大小、视场角、旋转速度
 + SPI时钟：36MHz
 
-[项目源代码](https://github.com/cx693/Learning_to_develop_STM32_using_Rust/blob/main/Dome/ST7789_cube3d_Color/src/main.rs)
+[项目源代码](https://github.com/cx693/Learning_to_develop_STM32_using_Rust/blob/main/Dome/ST7789_cube3d_No_Color/src/main.rs)
 
 
 
