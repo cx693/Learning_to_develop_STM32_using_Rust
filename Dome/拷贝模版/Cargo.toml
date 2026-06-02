@@ -1,6 +1,6 @@
 # [package] 段：定义包的元数据信息
 [package]
-name = "模版"
+name = "拷贝模版"
 version = "0.1.0"
 edition = "2024"
 
