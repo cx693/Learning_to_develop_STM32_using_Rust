@@ -1974,6 +1974,8 @@ Don't ask me why I used Python — because it's fast!
 ## ST7789 3D Cube (No Color — Framework)
 Render a rotating 3D cube on ST7789 240x240 display, supporting colored faces, wireframe rendering, and FPS counter.
 
+<img src="https://cdn.nlark.com/yuque/0/2026/png/67055297/1780395668801-d4b9c570-0ae4-419c-9862-219bafb97cdc.png" width="445" title="" crop="0,0,1,1" id="u355847a2" class="ne-image">
+
 **Hardware Pin Connection (same as SPI display):**
 
 | Display Pin | MCU Pin | Function Description |

@@ -1972,10 +1972,10 @@ fn usb_interrupt() {
 | SDA（DHT20） | PB6 | DHT20数据线 |
 
 
-[项目地址见这里](https://github.com/cx693/Learning_to_develop_STM32_using_Rust/tree/main/Dome/DHT20%2BST7789)
-
 ## ST7789 3D立方体（无颜色-框架）
 在ST7789 240x240显示屏上渲染旋转的3D立方体，支持彩色面、线框渲染和FPS计数器。
+
+<img src="https://cdn.nlark.com/yuque/0/2026/png/67055297/1780395668801-d4b9c570-0ae4-419c-9862-219bafb97cdc.png" width="445" title="" crop="0,0,1,1" id="u355847a2" class="ne-image">
 
 **硬件引脚连接（同SPI显示屏）：**
 
@@ -1986,6 +1986,7 @@ fn usb_interrupt() {
 | DC | PA0 | 命令/数据选择 |
 | RES | PA1 | 硬件复位 |
 | CS | GND | 片选拉低（始终选中） |
+
 
 **功能特性：**
 
