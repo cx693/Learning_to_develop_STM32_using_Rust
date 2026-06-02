@@ -5694,6 +5694,31 @@ fn main() -> ! {
 
 
 
+## ST7789 3D Cube (Color)
+Renders a rotating 3D cube on the ST7789 240x240 display with colored faces, edge rendering, and FPS counter.
+
+**Hardware Pin Connections (same as SPI display):**
+
+| Display Pin | MCU Pin | Function |
+| :--- | :--- | :--- |
+| SCL | PA5 | SPI Clock (SPI1_SCK) |
+| SDA | PA7 | SPI Data Output (SPI1_MOSI) |
+| DC | PA0 | Command/Data Select |
+| RES | PA1 | Hardware Reset |
+| CS | GND | Chip Select pulled low (always selected) |
+
+**Features:**
+
++ 6-face colored cube (red, yellow, green, cyan, blue, purple)
++ Wireframe edge rendering with dirty-rect optimization
++ Real-time FPS counter display
++ Configurable cube size, FOV, rotation speed
++ SPI clock: 36MHz
+
+[Project source code](https://github.com/cx693/Learning_to_develop_STM32_using_Rust/blob/main/Dome/ST7789_cube3d_Color/src/main.rs)
+
+
+
 # Conclusion
 Author email: pycx0@qq.com  
 The author completed this project as a senior about to graduate, because the job market pressure in China is immense. Currently job hunting — if things don't work out, I might end up working factory shifts!  
