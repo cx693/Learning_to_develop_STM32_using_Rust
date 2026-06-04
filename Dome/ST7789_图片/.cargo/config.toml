@@ -3,10 +3,10 @@
 # Runner — st-mem runner (跨平台，先分析内存再烧录)
 # ============================================================
 # st-mem runner: 分析 FLASH/RAM 占用 → probe-rs 烧录
-runner = "st-mem --sections --export md runner --chip STM32F103RC --protocol swd"
+runner = "st-mem --sections --export md runner --chip STM32F103C8 --protocol swd"
 # ============================================================
 # 不使用内存分析时，直接用 probe-rs:
-# runner = "probe-rs run --chip STM32F103RC --protocol swd"
+# runner = "probe-rs run --chip STM32F103C8 --protocol swd"
 # ============================================================
 rustflags = [
   "-C", "link-arg=-Tlink.x",
