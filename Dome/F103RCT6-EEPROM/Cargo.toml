@@ -1,6 +1,6 @@
 # [package] 段：定义包的元数据信息
 [package]
-name = "F103RTC6-EEPROM"
+name = "F103RCT6-EEPROM"
 version = "0.1.0"
 edition = "2024"
 
